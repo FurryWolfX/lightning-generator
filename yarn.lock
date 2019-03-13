@@ -27,6 +27,19 @@ isarray@~1.0.0:
   resolved "http://registry.npm.taobao.org/isarray/download/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
   integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
 
+lodash@^4.17.11:
+  version "4.17.11"
+  resolved "http://registry.npm.taobao.org/lodash/download/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
+  integrity sha1-s56mIp72B+zYniyN8SU2iRysm40=
+
+make-dir@^2.1.0:
+  version "2.1.0"
+  resolved "http://registry.npm.taobao.org/make-dir/download/make-dir-2.1.0.tgz#5f0310e18b8be898cc07009295a30ae41e91e6f5"
+  integrity sha1-XwMQ4YuL6JjMBwCSlaMK5B6R5vU=
+  dependencies:
+    pify "^4.0.1"
+    semver "^5.6.0"
+
 mysql@^2.16.0:
   version "2.16.0"
   resolved "http://registry.npm.taobao.org/mysql/download/mysql-2.16.0.tgz#b23b22ab5de44fc2d5d32bd4f5af6653fc45e2ba"
@@ -36,6 +49,11 @@ mysql@^2.16.0:
     readable-stream "2.3.6"
     safe-buffer "5.1.2"
     sqlstring "2.3.1"
+
+pify@^4.0.1:
+  version "4.0.1"
+  resolved "http://registry.npm.taobao.org/pify/download/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
+  integrity sha1-SyzSXFDVmHNcUCkiJP2MbfQeMjE=
 
 prettier@^1.16.4:
   version "1.16.4"
@@ -64,6 +82,11 @@ safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
   resolved "http://registry.npm.taobao.org/safe-buffer/download/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
   integrity sha1-mR7GnSluAxN0fVm9/St0XDX4go0=
+
+semver@^5.6.0:
+  version "5.6.0"
+  resolved "http://registry.npm.taobao.org/semver/download/semver-5.6.0.tgz#7e74256fbaa49c75aa7c7a205cc22799cac80004"
+  integrity sha1-fnQlb7qknHWqfHogXMInmcrIAAQ=
 
 sqlstring@2.3.1:
   version "2.3.1"

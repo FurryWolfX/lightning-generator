@@ -3,11 +3,7 @@ const Lightning = require("@wolfx/lightning");
 const database = Lightning.core.getState().database;
 
 module.exports.findById = async id => {
-    return await database.find("<%=tableName%>", [
-        <%col.forEach((item) => {%>
-            "<%=item.Field%>",
-        <%})%>
-    ], id);
+    return await database.find("<%=tableName%>", ["*"], id);
 };
 
 module.exports.updateById = async data => {
@@ -18,6 +14,6 @@ module.exports.insert = async data => {
     return await database.insert("<%=tableName%>", data);
 };
 
-module.exports.delete = async id => {
+module.exports.deleteById = async id => {
     return await database.delete("<%=tableName%>", id);
 };

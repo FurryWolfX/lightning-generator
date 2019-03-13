@@ -1,16 +1,53 @@
 const path = require("path");
 const fs = require("fs");
 const prettier = require("prettier");
-const { getColumns, renderFile } = require("../lib");
+const lodash = require("lodash");
+
+const { getColumns, renderFile, getTables, setConfig } = require("../lib");
+const makeDir = require("make-dir");
 
 async function render(tableName) {
   const col = await getColumns(tableName);
-  const str = await renderFile(path.resolve("template/service.ejs"), {
+  // service
+  let str = await renderFile(path.resolve("template/service.ejs"), {
     col,
     tableName
   });
-  const fStr = prettier.format(str, { parser: "babel" });
-  fs.writeFileSync(path.resolve(`generator/service/${tableName}.js`), fStr,{ encoding: "utf-8" });
+  str = prettier.format(str, { parser: "babel" });
+
+  fs.writeFileSync(
+    path.resolve(`generator/service/${lodash.camelCase(tableName)}.js`),
+    str,
+    {
+      encoding: "utf-8"
+    }
+  );
+  // router
+  str = await renderFile(path.resolve("template/router.ejs"), {
+    col,
+    tableName,
+    lodash
+  });
+  str = prettier.format(str, { parser: "babel" });
+  fs.writeFileSync(
+    path.resolve(`generator/router/${lodash.camelCase(tableName)}.js`),
+    str,
+    {
+      encoding: "utf-8"
+    }
+  );
 }
 
-render("user");
+async function renderAll(config) {
+  setConfig(config);
+  const dbName = config.database;
+  await makeDir("generator/service");
+  await makeDir("generator/router");
+  const tables = await getTables(dbName);
+  tables.forEach(item => render(item["Tables_in_" + dbName]));
+}
+
+module.exports = {
+  render,
+  renderAll
+};
