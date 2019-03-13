@@ -1,7 +1,7 @@
 const Lightning = require("@wolfx/lightning");
 
 const logger = require("../utils/logger");
-const { findById, updateById, insert, deleteById } = require("../service/user");
+const { findById, updateById, insert, deleteById } = require("../service/<%=tableName%>");
 const ResultJSON = require("../model/ResultJSON");
 
 const { app } = Lightning.core.getState();
