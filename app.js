@@ -1,4 +1,4 @@
-const { renderAll } = require("./test/test");
+const { renderAll } = require("./lib/main");
 
 renderAll({
   host: "192.168.1.22",
