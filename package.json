@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "async": "^2.6.2",
     "ejs": "^2.6.1",
     "lodash": "^4.17.11",
     "make-dir": "^2.1.0",

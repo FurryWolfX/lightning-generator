@@ -22,38 +22,28 @@ app.get("/generator/<%=tableName%>/findById", async (req, res) => {
     res.send(json);
 });
 
-app.post("/generator/<%=tableName%>/updateById", async (req, res) => {
+app.post("/generator/<%=tableName%>/addOrUpdate", async (req, res) => {
   const model = {
     <%col.forEach((item) => {%> <%=lodash.camelCase(item.Field)%>: req.body.<%=lodash.camelCase(item.Field)%>, // <%=item.Comment%>
     <%})%>
   };
   const json = new ResultJSON();
   try {
-      json.data = await updateById(model);
-      json.msg = "更新成功";
+      if (model.id) {
+         json.data = await updateById(model);
+         json.msg = "更新成功";
+      } else {
+         json.data = await insert(model);
+         json.msg = "插入成功";
+      }
       json.success = true;
   } catch (e) {
       json.data = null;
-      json.msg = "更新失败";
-      json.success = false;
-      logger.error(e);
-  }
-  res.send(json);
-});
-
-app.post("/generator/<%=tableName%>/insert", async (req, res) => {
-  const model = {
-    <%col.forEach((item) => {%> <%=lodash.camelCase(item.Field)%>: req.body.<%=lodash.camelCase(item.Field)%>, // <%=item.Comment%>
-    <%})%>
-  };
-  const json = new ResultJSON();
-  try {
-      json.data = await insert(model);
-      json.msg = "插入成功";
-      json.success = true;
-  } catch (e) {
-      json.data = null;
-      json.msg = "插入失败";
+      if (model.id) {
+         json.msg = "更新失败";
+      } else {
+         json.msg = "插入失败";
+      }
       json.success = false;
       logger.error(e);
   }
