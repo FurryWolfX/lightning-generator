@@ -3,17 +3,28 @@ const Lightning = require("@wolfx/lightning");
 const database = Lightning.core.getState().database;
 
 module.exports.findById = async id => {
-    return await database.find("<%=tableName%>", ["*"], id);
+    const result = await database.find("<%=table_name%>", ["*"], id);
+    if (result.length > 0) {
+        return result[0];
+    } else {
+        return {};
+    }
+};
+
+module.exports.queryByParams = async params => {
+  params.limitStart = (params.pageIndex - 1) * params.pageSize;
+  params.limitSize = +params.pageSize;
+  return await database.query("<%=table_name%>.queryByParams", params);
 };
 
 module.exports.updateById = async data => {
-    return await database.update("<%=tableName%>", data, id);
+    return await database.update("<%=table_name%>", data, id);
 };
 
 module.exports.insert = async data => {
-    return await database.insert("<%=tableName%>", data);
+    return await database.insert("<%=table_name%>", data);
 };
 
 module.exports.deleteById = async id => {
-    return await database.delete("<%=tableName%>", id);
+    return await database.delete("<%=table_name%>", id);
 };

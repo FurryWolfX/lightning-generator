@@ -1,0 +1,10 @@
+namespace: '<%=table_name%>'
+
+queryByParams:
+      - select * from <%=table_name%> where <%col.forEach((item) => {%>
+      - if:
+          test: :<%=lodash.camelCase(item.Field)%> # <%=item.Comment%>
+          sql: <%=item.Field%> = :<%=lodash.camelCase(item.Field)%> <%})%>
+      - if:
+          test: :limitSize
+          sql: limit :limitStart,:limitSize

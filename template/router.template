@@ -1,7 +1,7 @@
 const Lightning = require("@wolfx/lightning");
 
 const logger = require("../utils/logger");
-const { findById, updateById, insert, deleteById } = require("../service/<%=tableName%>");
+const { findById, updateById, insert, deleteById, queryByParams } = require("../service/<%=tableName%>");
 const ResultJSON = require("../model/ResultJSON");
 
 const { app } = Lightning.core.getState();
@@ -11,6 +11,21 @@ app.get("/generator/<%=tableName%>/findById", async (req, res) => {
     try {
         const id = req.query.id;
         json.data = await findById(id);
+        json.msg = "查询成功";
+        json.success = true;
+    } catch (e) {
+        json.data = null;
+        json.msg = "查询失败";
+        json.success = false;
+        logger.error(e);
+    }
+    res.send(json);
+});
+
+app.get("/generator/<%=tableName%>/queryByParams", async (req, res) => {
+    const json = new ResultJSON();
+    try {
+        json.data = await queryByParams(req.query);
         json.msg = "查询成功";
         json.success = true;
     } catch (e) {
