@@ -1,16 +1,16 @@
 const Lightning = require("@wolfx/lightning");
 
 const logger = require("../utils/logger");
-const { findById, updateById, insert, deleteById, queryByParams } = require("../service/<%=tableName%>");
+const <%=tableName%> = require("../service/<%=tableName%>");
 const ResultJSON = require("../model/ResultJSON");
 
-const { app } = Lightning.core.getState();
+const app = Lightning.core.getState().app;
 
 app.get("/generator/<%=tableName%>/findById", async (req, res) => {
     const json = new ResultJSON();
     try {
         const id = req.query.id;
-        json.data = await findById(id);
+        json.data = await <%=tableName%>.findById(id);
         json.msg = "查询成功";
         json.success = true;
     } catch (e) {
@@ -25,7 +25,7 @@ app.get("/generator/<%=tableName%>/findById", async (req, res) => {
 app.get("/generator/<%=tableName%>/queryByParams", async (req, res) => {
     const json = new ResultJSON();
     try {
-        json.data = await queryByParams(req.query);
+        json.data = await <%=tableName%>.queryByParams(req.query);
         json.msg = "查询成功";
         json.success = true;
     } catch (e) {
@@ -44,11 +44,10 @@ app.post("/generator/<%=tableName%>/addOrUpdate", async (req, res) => {
   };
   const json = new ResultJSON();
   try {
+      json.data = await <%=tableName%>.updateOrInsert(model);
       if (model.id) {
-         json.data = await updateById(model);
          json.msg = "更新成功";
       } else {
-         json.data = await insert(model);
          json.msg = "插入成功";
       }
       json.success = true;
@@ -69,7 +68,7 @@ app.get("/generator/<%=tableName%>/delete", async (req, res) => {
     const json = new ResultJSON();
     try {
         const id = req.query.id;
-        json.data = await deleteById(id);
+        json.data = await <%=tableName%>.deleteById(id);
         json.msg = "删除成功";
         json.success = true;
     } catch (e) {
