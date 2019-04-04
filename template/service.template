@@ -2,7 +2,7 @@ const Lightning = require("@wolfx/lightning");
 
 class <%=TableName%> extends LightningCore {
   async findById(id) {
-    const result = await database.find("<%=table_name%>", ["*"], id);
+    const result = await this.database.find("<%=table_name%>", ["*"], id);
     if (result.length > 0) {
         return result[0];
     } else {
@@ -14,9 +14,9 @@ class <%=TableName%> extends LightningCore {
       params.limitStart = (params.pageIndex - 1) * params.pageSize;
       params.limitSize = +params.pageSize;
     }
-    const list = await database.query("<%=table_name%>.queryByParams", params);
+    const list = await this.database.query("<%=table_name%>.queryByParams", params);
     if (params.pageSize) {
-      const count = await database.query("<%=table_name%>.countByParams", params);
+      const count = await this.database.query("<%=table_name%>.countByParams", params);
       return {
         list,
         count: count[0].count,
@@ -29,13 +29,13 @@ class <%=TableName%> extends LightningCore {
   }
   async updateOrInsert(data) {
     if (data.id) {
-      return await database.update("<%=table_name%>", data, "id");
+      return await this.database.update("<%=table_name%>", data, "id");
     } else {
-      return await database.insert("<%=table_name%>", data);
+      return await this.database.insert("<%=table_name%>", data);
     }
   }
   async deleteById(id) {
-    return await database.del("<%=table_name%>", id);
+    return await this.database.del("<%=table_name%>", id);
   }
 }
 
