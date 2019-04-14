@@ -39,7 +39,7 @@ app.get("/generator/<%=tableName%>/queryByParams", async (req, res) => {
 
 app.post("/generator/<%=tableName%>/addOrUpdate", async (req, res) => {
   const model = {
-    <%col.forEach((item) => {%> <%=lodash.camelCase(item.Field)%>: req.body.<%=lodash.camelCase(item.Field)%>, // <%=item.Comment%>
+    <%col.forEach((item) => {%> <%=lodash.camelCase(item.Field)%>: req.body.<%=lodash.camelCase(item.Field)%>, <%if(item.Comment){%>// <%=item.Comment%><%}%>
     <%})%>
   };
   const json = new ResultJSON();

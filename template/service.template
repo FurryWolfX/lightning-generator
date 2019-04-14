@@ -1,4 +1,5 @@
 const Lightning = require("@wolfx/lightning");
+const LightningCore = require("../utils/LightningCore");
 
 class <%=TableName%> extends LightningCore {
   async findById(id) {
