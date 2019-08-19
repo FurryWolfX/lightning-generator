@@ -22,9 +22,9 @@ function getParamList(col) {
 }
 %>
 /**
- * @api {GET} /<%=tableName%>/all 查询所有数据
- * @apiDescription 查询所有数据
- * @apiGroup <%=tableName%>
+ * @api {GET} /<%=tableName%>/all 查询<%=tableName%>所有数据
+ * @apiDescription 查询<%=tableName%>所有数据
+ * @apiGroup LightningGenerator
 <%=getParamList(col)%>
  */
 get("/<%=tableName%>/all", async (req, res) => {
