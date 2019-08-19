@@ -1,45 +1,37 @@
-const <%=tableName%> = require("../service/<%=tableName%>");
-const ResultJSON = require("../model/ResultJSON");
-const { get, post } = require("../utils/routerUtil");
+import * as <%=tableName%> from "../service/<%=tableName%>";
+import ResultJSON from "../model/ResultJSON";
+import { get, post } from "../utils/router";
 
-get("/generator/<%=tableName%>/findById", async (req, res) => {
-    const json = new ResultJSON();
-    const id = req.query.id;
-    json.data = await <%=tableName%>.findById(id);
-    json.msg = "查询成功";
-    json.success = true;
-    res.send(json);
-});
-
-get("/generator/<%=tableName%>/queryByParams", async (req, res) => {
-    const json = new ResultJSON();
-    json.data = await <%=tableName%>.queryByParams(req.query);
-    json.msg = "查询成功";
-    json.success = true;
-    res.send(json);
-});
-
-post("/generator/<%=tableName%>/addOrUpdate", async (req, res) => {
-  const model = {
-    <%col.forEach((item) => {%> <%=lodash.camelCase(item.Field)%>: req.body.<%=lodash.camelCase(item.Field)%>, <%if(item.Comment){%>// <%=item.Comment%><%}%>
-    <%})%>
-  };
-  const json = new ResultJSON();
-  json.data = await <%=tableName%>.updateOrInsert(model);
-  if (model.id) {
-     json.msg = "更新成功";
+<%
+function getType(type) {
+  if (type.indexOf('int') !== -1 || type.indexOf('float') !== -1 || type.indexOf('double') !== -1) {
+    return "Number";
   } else {
-     json.msg = "插入成功";
+    return "String"
   }
+}
+function getParamList(col) {
+    const paramsList = [];
+    col.forEach(item => {
+        const type = getType(item.Type);
+        const paramName = lodash.camelCase(item.Field);
+        const desc = item.Comment || '';
+        paramsList.push(" * @apiSuccess {" + type + "} " + paramName + " " + desc);
+    });
+    return paramsList.join("\r\n");
+}
+%>
+/**
+ * @api {GET} /<%=tableName%>/all 查询所有数据
+ * @apiDescription 查询所有数据
+ * @apiGroup <%=tableName%>
+<%=getParamList(col)%>
+ */
+get("/<%=tableName%>/all", async (req, res) => {
+  const json = new ResultJSON();
+  json.data = await <%=tableName%>.queryAll();
+  json.msg = "查询成功";
   json.success = true;
   res.send(json);
 });
 
-get("/generator/<%=tableName%>/delete", async (req, res) => {
-    const json = new ResultJSON();
-    const id = req.query.id;
-    json.data = await <%=tableName%>.deleteById(id);
-    json.msg = "删除成功";
-    json.success = true;
-    res.send(json);
-});
