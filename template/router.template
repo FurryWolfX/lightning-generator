@@ -12,11 +12,14 @@ function getType(type) {
 }
 function getParamList(col) {
     const paramsList = [];
+    paramsList.push(" * @apiSuccess {String} msg");
+    paramsList.push(" * @apiSuccess {Boolean} success");
+    paramsList.push(" * @apiSuccess {Object} data");
     col.forEach(item => {
         const type = getType(item.Type);
         const paramName = lodash.camelCase(item.Field);
         const desc = item.Comment || '';
-        paramsList.push(" * @apiSuccess {" + type + "} " + paramName + " " + desc);
+        paramsList.push(" * @apiSuccess {" + type + "} data." + paramName + " " + desc);
     });
     return paramsList.join("\r\n");
 }
