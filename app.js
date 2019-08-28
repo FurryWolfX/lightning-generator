@@ -1,8 +1,9 @@
 const { renderAll } = require("./lib/main");
 
 renderAll({
-  host: "49.4.69.87",
-  user: "ypf",
-  password: "junlsoft",
-  database: "ngjh"
+  server: "61.155.107.97",
+  user: "zl",
+  password: "@seurk08",
+  database: "DMS_ZTJ",
+  port: 15330
 });

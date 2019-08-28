@@ -1,5 +1,5 @@
-import DatabaseMysql from "../utils/database.mysql";
+import Database from "../utils/database.mssql";
 
 export async function queryAll(): Promise<any[]> {
-  return await DatabaseMysql.select("<%=table_name%>", ["*"], {});
+  return await Database.select("<%=table_name%>", ["*"], {});
 }
