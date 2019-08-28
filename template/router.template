@@ -4,7 +4,7 @@ import { get, post } from "../utils/router";
 
 <%
 function getType(type) {
-  if (type.indexOf('int') !== -1 || type.indexOf('float') !== -1 || type.indexOf('double') !== -1) {
+  if (type.indexOf('int') !== -1 || type.indexOf('decimal') !== -1) {
     return "Number";
   } else {
     return "String"

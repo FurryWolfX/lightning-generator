@@ -1,4 +1,4 @@
-import Database from "../utils/database.mssql";
+import Database from "../utils/database";
 
 export async function queryAll(): Promise<any[]> {
   return await Database.select("<%=table_name%>", ["*"], {});
