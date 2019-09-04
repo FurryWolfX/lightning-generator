@@ -30,7 +30,7 @@ function getParamList(col) {
  * @apiGroup LightningGenerator
 <%=getParamList(col)%>
  */
-get("/<%=tableName%>/all", async (req, res) => {
+get("/v1/<%=tableName%>/all", async (req, res) => {
   const json = new ResultJSON();
   json.data = await <%=tableName%>.queryAll();
   json.msg = "查询成功";
