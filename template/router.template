@@ -25,8 +25,8 @@ function getParamList(col) {
 }
 %>
 /**
- * @api {GET} /<%=tableName%>/all 查询<%=tableName%>所有数据
- * @apiDescription 查询<%=tableName%>所有数据
+ * @api {GET} /<%=tableName%>/all [<%=tableName%>]查询所有数据
+ * @apiDescription [<%=tableName%>]查询所有数据
  * @apiGroup LightningGenerator
 <%=getParamList(col)%>
  */
